@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoda Shine | Jewelry</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .hero { position: relative; overflow: hidden; min-height: 620px; }
+    .hero-slides { position: absolute; inset: 0; }
+    .hero-slide {
+      position: absolute; inset: 0;
+      display: flex; align-items: center;
+      background-size: cover; background-position: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity .55s ease;
+}
+    .hero-slide:nth-child(1) {
+      background-image: url("images/Hero/hero01.png");
+    }
+    .hero-slide:nth-child(2) {
+      background-image: url("images/Hero/hero02.png");
+    }
+    .hero-slide:nth-child(3) {
+      background-image: url("images/Hero/hero03.png");
+    }
+    .hero-slide.active { opacity: 1; visibility: visible; }
+    .hero-slide .hero-content { position: relative; z-index: 2; }
+    .hero-dots {
+      position: absolute; z-index: 5; bottom: 28px; left: 50%;
+      transform: translateX(-50%); display: flex; gap: 10px;
+    }
+    .hero-dot {
+      width: 10px; height: 10px; padding: 0; border-radius: 50%;
+      border: 1px solid currentColor; background: transparent; cursor: pointer;
+      opacity: .55;
+    }
+    .hero-dot.active { opacity: 1; transform: scale(1.2); }
+    /* PRODUCT IMAGE FIX */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 24px;
+      align-items: stretch;
+    }
+    .product-card {
+      background: #fffdf8;
+      overflow: hidden;
+      min-width: 0;
+    }
+    .product-image {
+      width: 100%;
+      aspect-ratio: 1 / 1.15;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f7f1e3;
+      overflow: hidden;
+    }
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform .35s ease;
+    }
+    .product-card:hover .product-image img { transform: scale(1.04); }
+    .product-card img { max-width: 100%; }
+    @media (max-width: 900px) {
+      .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 520px) {
+      .products { grid-template-columns: 1fr; gap: 18px; }
+    }
+
+    @media (max-width: 700px) {
+      .hero { min-height: 560px; }
+      .hero-slide {
+        align-items: flex-end; padding-bottom: 70px;
+        background-position: 62% center;
+      }
+      .hero-slide .hero-content { z-index: 2; width: 100%; }
+    }
+  </style>
+
+</head>
+<body id="home">
+
+  <div class="announcement">✦ &nbsp; Free Shipping on Orders Over 500 EGP &nbsp; ✦</div>
+
+  <header class="header">
+    <div class="search-box">
+      <span>⌕</span>
+      <input id="searchInput" type="search" placeholder="Search for jewelry...">
+    </div>
+
+    <a href="#home" class="logo-link" aria-label="Hoda Shine Home">
+      <img src="images/logo.png" class="logo-image" alt="Hoda Shine Jewelry">
+    </a>
+
+    <div class="header-actions">
+      <button id="accountButton" class="icon-button" aria-label="Account" title="Account">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20c.8-3.5 3-5.2 6.5-5.2s5.7 1.7 6.5 5.2"/></svg>
+      </button>
+      <button id="wishlistButton" class="icon-button" aria-label="Wishlist" title="Wishlist">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.3S4.5 15.7 3.1 10.5C2.1 6.6 4.5 4 7.5 4c1.9 0 3.5 1 4.5 2.5C13 5 14.6 4 16.5 4c3 0 5.4 2.6 4.4 6.5C19.5 15.7 12 20.3 12 20.3Z"/></svg>
+        <span id="wishlistCount" class="mini-badge">0</span>
+      </button>
+      <button id="cartButton" class="bag-button" aria-label="Open cart" title="Cart">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5h2l1.4 10.2a2 2 0 0 0 2 1.8h7.7a2 2 0 0 0 2-1.7L20 8H6.2"/><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/></svg>
+        <span id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <a class="active" href="#home">HOME</a>
+    <a href="#shop">SHOP</a>
+    <a href="#collections">COLLECTIONS</a>
+    <a href="#about">ABOUT</a>
+    <a href="#contact">CONTACT</a>
+  </nav>
+
+  <section class="hero" id="heroSlider" aria-label="Featured collections">
+    <div class="hero-slides">
+      <article class="hero-slide active">
+        <div class="hero-content">
+          <p class="eyebrow">TIMELESS ELEGANCE</p>
+          <h1>More Than Jewelry...<br><em>It's a Feeling</em> <span>—</span></h1>
+          <p>Elegant designs for every moment that matters.</p>
+          <a href="#shop" class="gold-button">SHOP NOW <span>→</span></a>
+        </div>
+      </article>
+
+      <article class="hero-slide">
+        <div class="hero-content">
+          <p class="eyebrow">YOUR EVERYDAY SHINE</p>
+          <h1>Simple Pieces,<br><em>Beautiful Moments</em> <span>—</span></h1>
+          <p>Discover jewelry made to complete your style.</p>
+          <a href="#shop" class="gold-button">SHOP NOW <span>→</span></a>
+        </div>
+      </article>
+
+      <article class="hero-slide">
+        <div class="hero-content">
+          <p class="eyebrow">MADE TO SHINE</p>
+          <h1>Find Your<br><em>Signature Sparkle</em> <span>—</span></h1>
+          <p>Choose the piece that feels uniquely yours.</p>
+          <a href="#shop" class="gold-button">SHOP NOW <span>→</span></a>
+        </div>
+      </article>
+    </div>
+
+    <div class="hero-dots" aria-label="Hero slides">
+      <button class="hero-dot active" type="button" aria-label="Show slide 1"></button>
+      <button class="hero-dot" type="button" aria-label="Show slide 2"></button>
+      <button class="hero-dot" type="button" aria-label="Show slide 3"></button>
+    </div>
+  </section>
+
+  <section id="collections" class="categories">
+
+  <!-- RINGS -->
+  <a href="#shop" class="category-card" data-category="RINGS">
+    <div class="category-image">
+      <svg viewBox="0 0 64 64" fill="none"
+           xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 38C18 29.7 24.3 23 32 23C39.7 23 46 29.7 46 38C46 46 40 52 32 52C24 52 18 46 18 38Z"
+              stroke="currentColor" stroke-width="2"/>
+        <path d="M23 27L27 17L32 12L37 17L41 27"
+              stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M27 17H37L32 12L27 17Z"
+              stroke="currentColor" stroke-width="2"
+              stroke-linejoin="round"/>
+        <path d="M30 14L32 12L34 14"
+              stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <h3>RINGS</h3>
+    <span>→</span>
+  </a>
+
+
+  <!-- EARRINGS -->
+  <a href="#shop" class="category-card" data-category="EARRINGS">
+    <div class="category-image">
+      <svg viewBox="0 0 64 64" fill="none"
+           xmlns="http://www.w3.org/2000/svg">
+        <circle cx="22" cy="13" r="4"
+                stroke="currentColor" stroke-width="2"/>
+        <circle cx="42" cy="13" r="4"
+                stroke="currentColor" stroke-width="2"/>
+
+        <path d="M22 17V22"
+              stroke="currentColor" stroke-width="2"
+              stroke-linecap="round"/>
+        <path d="M42 17V22"
+              stroke="currentColor" stroke-width="2"
+              stroke-linecap="round"/>
+
+        <path d="M22 22C16 28 16 38 22 47C28 38 28 28 22 22Z"
+              stroke="currentColor" stroke-width="2"
+              stroke-linejoin="round"/>
+
+        <path d="M42 22C36 28 36 38 42 47C48 38 48 28 42 22Z"
+              stroke="currentColor" stroke-width="2"
+              stroke-linejoin="round"/>
+
+        <path d="M22 29L25 34L22 40L19 34L22 29Z"
+              stroke="currentColor" stroke-width="1.5"/>
+        <path d="M42 29L45 34L42 40L39 34L42 29Z"
+              stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <h3>EARRINGS</h3>
+    <span>→</span>
+  </a>
+
+
+  <!-- NECKLACES -->
+  <a href="#shop" class="category-card" data-category="NECKLACES">
+    <div class="category-image">
+      <svg viewBox="0 0 64 64" fill="none"
+           xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 15C16 28 22 34 32 34C42 34 48 28 52 15"
+              stroke="currentColor" stroke-width="2"
+              stroke-linecap="round"/>
+
+        <path d="M12 15C17 18 22 19 27 18"
+              stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round"/>
+        <path d="M37 18C42 19 47 18 52 15"
+              stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round"/>
+
+        <circle cx="32" cy="35" r="3"
+                stroke="currentColor" stroke-width="2"/>
+
+        <path d="M32 38L25 47L32 55L39 47L32 38Z"
+              stroke="currentColor" stroke-width="2"
+              stroke-linejoin="round"/>
+
+        <path d="M32 41L29 47L32 51L35 47L32 41Z"
+              stroke="currentColor" stroke-width="1.5"
+              stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h3>NECKLACES</h3>
+    <span>→</span>
+  </a>
+
+
+  <!-- BRACELETS -->
+  <a href="#shop" class="category-card" data-category="BRACELETS">
+    <div class="category-image">
+      <svg viewBox="0 0 64 64" fill="none"
+           xmlns="http://www.w3.org/2000/svg">
+
+        <ellipse cx="32" cy="32" rx="20" ry="13"
+                 stroke="currentColor" stroke-width="2"/>
+
+        <ellipse cx="32" cy="32" rx="15" ry="9"
+                 stroke="currentColor" stroke-width="1.5"/>
+
+        <path d="M47 22L52 18"
+              stroke="currentColor" stroke-width="2"
+              stroke-linecap="round"/>
+
+        <path d="M49 25L54 22"
+              stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round"/>
+
+        <circle cx="52" cy="18" r="2"
+                stroke="currentColor" stroke-width="1.5"/>
+
+        <path d="M18 25C20 22 23 20 26 19"
+              stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h3>BRACELETS</h3>
+    <span>→</span>
+  </a>
+
+
+  <!-- SETS -->
+  <a href="#shop" class="category-card" data-category="SETS">
+    <div class="category-image">
+      <svg viewBox="0 0 64 64" fill="none"
+           xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Necklace -->
+        <path d="M13 15C17 24 22 28 27 29"
+              stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round"/>
+        <path d="M37 29C42 28 47 24 51 15"
+              stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round"/>
+
+        <path d="M32 29L27 36L32 42L37 36L32 29Z"
+              stroke="currentColor" stroke-width="1.8"
+              stroke-linejoin="round"/>
+
+        <!-- Ring -->
+        <circle cx="19" cy="47" r="6"
+                stroke="currentColor" stroke-width="1.8"/>
+        <path d="M15 42L19 37L23 42"
+              stroke="currentColor" stroke-width="1.8"
+              stroke-linejoin="round"/>
+
+        <!-- Earrings -->
+        <circle cx="43" cy="43" r="2.5"
+                stroke="currentColor" stroke-width="1.8"/>
+        <path d="M43 46V51L47 55"
+              stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round"/>
+        <path d="M43 51L39 55"
+              stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h3>SETS</h3>
+    <span>→</span>
+  </a>
+
+</section>
+  <main id="shop" class="shop-section">
+    <div class="section-title">
+      <div class="ornament">✦</div>
+      <h2>OUR PICKS</h2>
+      <p>Our most loved pieces, chosen to make your shine brighter</p>
+    </div>
+    <section id="products" class="products"></section>
+  </main>
+
+  <section id="about" class="about-section">
+    <div class="about-art about-logo-art">
+      <img src="images/logo.png" alt="Hoda Shine Jewelry logo">
+    </div>
+    <div class="about-copy">
+      <p class="eyebrow">ABOUT HODA SHINE</p>
+      <h2>Every woman has her unique shine.</h2>
+      <p>With every accessory she chooses, her sparkle grows a little brighter.</p>
+      <p class="about-signature"><strong>Hoda Shine — Made to ensure<br>Your Style Is Your Shine.</strong></p>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <p class="eyebrow">GET IN TOUCH</p>
+    <h2>CONTACT US</h2>
+    <p class="contact-intro">We’d love to hear from you.</p>
+    <div class="contact-grid">
+      <a class="contact-card" href="https://wa.me/201148645684" target="_blank" rel="noopener"><strong>WhatsApp</strong><small>Chat with us</small></a>
+      <a class="contact-card" href="https://www.facebook.com/share/1GcGH3z3gf/"><strong>Facebook</strong><small>hodashine</small></a>
+      <a class="contact-card" href="https://www.instagram.com/h0dashine?stkn=MWd6Nnk4MHBzcjY2ZQ=="><strong>Instagram</strong><small>@h0dashine</small></a>
+    </div>
+  </section>
+
+  <div id="accountPanel" class="small-panel" aria-hidden="true">
+    <button class="product-modal-close" id="closeAccount" aria-label="Close">×</button>
+    <p class="eyebrow">HODA SHINE</p><h2>My Account</h2>
+    <p class="panel-muted">You are browsing as a guest. Account sign-in can be connected later.</p>
+  </div>
+
+  <div id="wishlistPanel" class="small-panel" aria-hidden="true">
+    <button class="product-modal-close" id="closeWishlist" aria-label="Close">×</button>
+    <p class="eyebrow">HODA SHINE</p><h2>My Wishlist</h2>
+    <div id="wishlistItems"></div>
+  </div>
+
+  <div id="productModal" class="product-modal" aria-hidden="true">
+    <div class="product-modal-backdrop" data-close-product></div>
+    <div class="product-modal-card" role="dialog" aria-modal="true" aria-label="Product details">
+      <button class="product-modal-close" id="closeProduct" aria-label="Close">×</button>
+      <div id="productModalContent"></div>
+    </div>
+  </div>
+
+  <div id="cartOverlay" class="cart-overlay"></div>
+
+  <aside id="cartPanel" class="cart-panel" aria-label="Shopping cart">
+    <div class="cart-header">
+      <div>
+        <p class="eyebrow">HODA SHINE</p>
+        <h2>Your Cart</h2>
+      </div>
+      <button id="closeCart" class="close-button" aria-label="Close cart">×</button>
+    </div>
+
+    <div id="cartItems" class="cart-items"></div>
+
+    <div class="cart-bottom">
+      <div id="cartTotal" class="cart-total">Total: EGP 0</div>
+
+      <h3>Checkout</h3>
+      <form id="checkoutForm">
+        <input id="customerName" required placeholder="Full name">
+        <input id="customerPhone" required type="tel" placeholder="Phone number">
+        <input id="customerAddress" required placeholder="Delivery address">
+        <textarea id="customerNotes" rows="3" placeholder="Notes (optional)"></textarea>
+        <button class="gold-button full" type="submit">PLACE ORDER</button>
+      </form>
+      <p id="orderMessage" class="order-message"></p>
+    </div>
+  </aside>
+
+  <footer>
+    <a href="#home" aria-label="Back to Home">
+      <img src="images/logo.png" alt="Hoda Shine" class="footer-logo">
+    </a>
+    <p>Jewelry made to shine with you.</p>
+  </footer>
+
+  <script src="script.js"></script>
+
+  <script>
+    (() => {
+      const slides = [...document.querySelectorAll('.hero-slide')];
+      const dots = [...document.querySelectorAll('.hero-dot')];
+      if (!slides.length || slides.length !== dots.length) return;
+
+      let current = 0;
+      let timer;
+
+      function showSlide(index) {
+        current = (index + slides.length) % slides.length;
+        slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === current);
+          dot.setAttribute('aria-current', i === current ? 'true' : 'false');
+        });
+      }
+
+      function startAutoPlay() {
+        clearInterval(timer);
+        timer = setInterval(() => showSlide(current + 1), 5000);
+      }
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          showSlide(i);
+          startAutoPlay();
+        });
+      });
+
+      showSlide(0);
+      startAutoPlay();
+    })();
+  </script>
+
+</body>
+</html>
